@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "Minha API para o TCC com Node.js e MySQL",
   "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
+ "scripts": {
+  "start": "node server.js",
+  "testdeploy": "ls -R"
+},
+
   "dependencies": {
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
