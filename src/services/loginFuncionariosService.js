@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const repository = require('../repositories/loginFuncionariosRepositories');
+const repository = require('../repositories/loginFuncionariosRepository');
 
 module.exports = {
   async login(email, senha) {

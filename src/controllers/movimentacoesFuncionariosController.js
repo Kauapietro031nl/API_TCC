@@ -1,4 +1,4 @@
-const movimentacoesService = require('../services/movimentacoes-funcionariosService');
+const movimentacoesService = require('../services/movimentacoesFuncionariosService');
 
 const getMovimentacoes = async (req, res) => {
     try {
