@@ -99,7 +99,7 @@ DB_NAME=nome_do_banco
 
 ```bash
 # Clone o repositório
-git clone https://github.com/Kauapietro031nl/TCC-senai.git
+https://github.com/Kauapietro031nl/API_TCC.git
 
 # Acesse o backend
 cd TCC-senai/backend
