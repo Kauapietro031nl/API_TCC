@@ -1,0 +1,27 @@
+{
+  "name": "api-tcc",
+  "version": "1.0.0",
+  "description": "Minha API para o TCC com Node.js e MySQL",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.2",
+    "json2csv": "^6.0.0-alpha.2",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.4",
+    "mysql2": "^3.12.0",
+    "path": "^0.12.7",
+    "pdfkit": "^0.16.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
