@@ -1,8 +1,13 @@
-const db = require('../config/db');
+const pool = require('../config/db');
 
-const findUserByEmail = (email, callback) => {
+const findUserByEmail = async (email) => {
   const sql = 'SELECT * FROM login WHERE email = ?';
-  db.query(sql, [email], callback);
+  try {
+    const [results] = await pool.query(sql, [email]);
+    return results[0] || null;
+  } catch (err) {
+    throw err;
+  }
 };
 
 module.exports = { findUserByEmail };

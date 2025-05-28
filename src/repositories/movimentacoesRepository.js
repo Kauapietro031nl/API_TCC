@@ -1,45 +1,50 @@
-const db = require('../config/db');
+const pool = require('../config/db');
 
-exports.buscarProdutoPorCodigo = (codigo) => {
-    return new Promise((resolve, reject) => {
-        db.query('SELECT * FROM estoque WHERE codigo = ?', [codigo], (err, results) => {
-            if (err) return reject(err);
-            resolve(results[0] || null);
-        });
-    });
+const buscarProdutoPorCodigo = async (codigo) => {
+  try {
+    const [results] = await pool.query('SELECT * FROM estoque WHERE codigo = ?', [codigo]);
+    return results[0] || null;
+  } catch (err) {
+    throw err;
+  }
 };
 
-exports.atualizarQuantidadeProduto = (produtoId, novaQuantidade) => {
-    return new Promise((resolve, reject) => {
-        db.query('UPDATE estoque SET quantidade = ? WHERE id = ?', [novaQuantidade, produtoId], (err) => {
-            if (err) return reject(err);
-            resolve();
-        });
-    });
+const atualizarQuantidadeProduto = async (produtoId, novaQuantidade) => {
+  try {
+    await pool.query('UPDATE estoque SET quantidade = ? WHERE id = ?', [novaQuantidade, produtoId]);
+  } catch (err) {
+    throw err;
+  }
 };
 
-exports.inserirMovimentacao = ({ produto, funcionarioEmail, quantidade, tipoMovimentacao, observacao }) => {
-    return new Promise((resolve, reject) => {
-        db.query(
-            `INSERT INTO movimentacoes (
-                produto_id, produto_codigo, produto_nome, produto_descricao,
-                quantidade, funcionario_email, observacao, tipo, data_movimentacao
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-            [
-                produto.id,
-                produto.codigo,
-                produto.nome,
-                produto.descricao,
-                quantidade,
-                funcionarioEmail,
-                observacao,
-                tipoMovimentacao,
-                new Date()
-            ],
-            (err, result) => {
-                if (err) return reject(err);
-                resolve({ id: result.insertId });
-            }
-        );
-    });
+const inserirMovimentacao = async ({ produto, funcionarioEmail, quantidade, tipoMovimentacao, observacao }) => {
+  try {
+    const query = `
+      INSERT INTO movimentacoes (
+        produto_id, produto_codigo, produto_nome, produto_descricao,
+        quantidade, funcionario_email, observacao, tipo, data_movimentacao
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    const params = [
+      produto.id,
+      produto.codigo,
+      produto.nome,
+      produto.descricao,
+      quantidade,
+      funcionarioEmail,
+      observacao,
+      tipoMovimentacao,
+      new Date()
+    ];
+    const [result] = await pool.query(query, params);
+    return { id: result.insertId };
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = {
+  buscarProdutoPorCodigo,
+  atualizarQuantidadeProduto,
+  inserirMovimentacao
 };

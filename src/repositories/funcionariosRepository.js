@@ -1,67 +1,64 @@
-const db = require('../config/db');
+const pool = require('../config/db');
 
-function findAll(searchTerm) {
-  return new Promise((resolve, reject) => {
-    const query = searchTerm
-      ? 'SELECT id, nome, email FROM funcionarios WHERE nome LIKE ?'
-      : 'SELECT id, nome, email FROM funcionarios';
+const findAll = async (searchTerm) => {
+  const query = searchTerm
+    ? 'SELECT id, nome, email FROM funcionarios WHERE nome LIKE ?'
+    : 'SELECT id, nome, email FROM funcionarios';
 
-    const values = searchTerm ? [`%${searchTerm}%`] : [];
+  const values = searchTerm ? [`%${searchTerm}%`] : [];
 
-    db.query(query, values, (err, results) => {
-      if (err) return reject(err);
-      resolve(results);
-    });
-  });
-}
+  try {
+    const [results] = await pool.query(query, values);
+    return results;
+  } catch (err) {
+    throw err;
+  }
+};
 
-function findById(id) {
-  return new Promise((resolve, reject) => {
-    db.query('SELECT id, nome, email FROM funcionarios WHERE id = ?', [id], (err, results) => {
-      if (err) return reject(err);
-      resolve(results[0]);
-    });
-  });
-}
+const findById = async (id) => {
+  try {
+    const [results] = await pool.query('SELECT id, nome, email FROM funcionarios WHERE id = ?', [id]);
+    return results[0];
+  } catch (err) {
+    throw err;
+  }
+};
 
-function create({ nome, email, senha }) {
-  return new Promise((resolve, reject) => {
-    db.query(
-      'INSERT INTO funcionarios (nome, email, senha) VALUES (?, ?, ?)',
-      [nome, email, senha],
-      (err) => {
-        if (err) return reject(err);
-        resolve();
-      }
-    );
-  });
-}
+const create = async ({ nome, email, senha }) => {
+  try {
+    const query = 'INSERT INTO funcionarios (nome, email, senha) VALUES (?, ?, ?)';
+    const [result] = await pool.query(query, [nome, email, senha]);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
 
-function update(id, { nome, email, senha }) {
-  return new Promise((resolve, reject) => {
-    const query = senha
-      ? 'UPDATE funcionarios SET nome = ?, email = ?, senha = ? WHERE id = ?'
-      : 'UPDATE funcionarios SET nome = ?, email = ? WHERE id = ?';
+const update = async (id, { nome, email, senha }) => {
+  try {
+    let query, values;
 
-    const values = senha
-      ? [nome, email, senha, id]
-      : [nome, email, id];
+    if (senha) {
+      query = 'UPDATE funcionarios SET nome = ?, email = ?, senha = ? WHERE id = ?';
+      values = [nome, email, senha, id];
+    } else {
+      query = 'UPDATE funcionarios SET nome = ?, email = ? WHERE id = ?';
+      values = [nome, email, id];
+    }
 
-    db.query(query, values, (err) => {
-      if (err) return reject(err);
-      resolve();
-    });
-  });
-}
+    await pool.query(query, values);
+  } catch (err) {
+    throw err;
+  }
+};
 
-function remove(id) {
-  return new Promise((resolve, reject) => {
-    db.query('DELETE FROM funcionarios WHERE id = ?', [id], (err) => {
-      if (err) return reject(err);
-      resolve();
-    });
-  });
-}
+const remove = async (id) => {
+  try {
+    await pool.query('DELETE FROM funcionarios WHERE id = ?', [id]);
+  } catch (err) {
+    throw err;
+  }
+};
 
 module.exports = {
   findAll,

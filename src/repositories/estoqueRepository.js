@@ -1,33 +1,29 @@
-const db = require('../config/db');
+const pool = require('../config/db');
 
-const listarPecas = () => {
-  return new Promise((resolve, reject) => {
-    const query = 'SELECT * FROM estoque';
-    db.query(query, (err, result) => {
-      if (err) return reject(err);
-      resolve(result);
-    });
-  });
+const listarPecas = async () => {
+  const [rows] = await pool.query('SELECT * FROM estoque');
+  return rows;
 };
 
-const atualizarPeca = (codigo, dados) => {
-  return new Promise((resolve, reject) => {
-    const query = 'UPDATE estoque SET ? WHERE codigo = ?';
-    db.query(query, [dados, codigo], (err, result) => {
-      if (err) return reject(err);
-      resolve(result);
-    });
-  });
+const atualizarPeca = async (codigo, dados) => {
+  const { nome, quantidade, descricao, localizacao, valor } = dados;
+  const sql = `
+    UPDATE estoque SET 
+      nome = ?, 
+      quantidade = ?, 
+      descricao = ?, 
+      localizacao = ?, 
+      valor = ?
+    WHERE codigo = ?`;
+
+  const [result] = await pool.query(sql, [nome, quantidade, descricao, localizacao, valor, codigo]);
+  return result;
 };
 
-const deletarPeca = (codigo) => {
-  return new Promise((resolve, reject) => {
-    const query = 'DELETE FROM estoque WHERE codigo = ?';
-    db.query(query, [codigo], (err, result) => {
-      if (err) return reject(err);
-      resolve(result);
-    });
-  });
+const deletarPeca = async (codigo) => {
+  const sql = 'DELETE FROM estoque WHERE codigo = ?';
+  const [result] = await pool.query(sql, [codigo]);
+  return result;
 };
 
 module.exports = {

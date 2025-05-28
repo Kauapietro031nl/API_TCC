@@ -1,18 +1,15 @@
-const db = require('../config/db');
+const pool = require('../config/db');
 
-const getAllMovimentacoes = () => {
-    return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM movimentacoes ORDER BY data_movimentacao DESC';
-        db.query(query, (err, results) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(results);
-            }
-        });
-    });
+const getAllMovimentacoes = async () => {
+  try {
+    const query = 'SELECT * FROM movimentacoes ORDER BY data_movimentacao DESC';
+    const [results] = await pool.query(query);
+    return results;
+  } catch (err) {
+    throw err;
+  }
 };
 
 module.exports = {
-    getAllMovimentacoes
+  getAllMovimentacoes
 };

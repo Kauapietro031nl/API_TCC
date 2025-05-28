@@ -1,7 +1,7 @@
-const db = require('../config/db');
+const pool = require('../config/db');
 
-const buscarPorTipo = (tipo) => {
-  return new Promise((resolve, reject) => {
+const buscarPorTipo = async (tipo) => {
+  try {
     let query = 'SELECT codigo, nome, quantidade, descricao, localizacao, valor FROM estoque';
 
     if (tipo === 'baixa') {
@@ -10,11 +10,11 @@ const buscarPorTipo = (tipo) => {
       query += ' WHERE quantidade > 1000';
     }
 
-    db.query(query, (err, results) => {
-      if (err) return reject(err);
-      resolve(results);
-    });
-  });
+    const [results] = await pool.query(query);
+    return results;
+  } catch (err) {
+    throw err;
+  }
 };
 
 module.exports = {
