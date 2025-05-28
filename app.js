@@ -4,7 +4,7 @@ const errorMiddleware = require('./src/middlewares/errorMiddleware');
 const routes = require('./src/routes/routes');
 const movimentacoesRoutes = require('./src/routes/movimentacoesRoutes');
 const loginRoutes = require('./src/routes/loginFuncionariosRoutes');
-const movimentacoesFuncionariosRoutes = require('./src/routes/movimentacoesFuncionariosRoutes');
+const movimentacoesFuncionariosRoutes = require('./src/routes/movimentacoesfuncionariosRoutes.js');
 
 
 const app = express();
