@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const authRepository = require('../repositories/authRepository');
+const authRepository = require('../repositories/authrepository');
 
 const registerUser = async (nome, email, senha) => {
   console.log('Dados no service:', { nome, email, senha }); 
