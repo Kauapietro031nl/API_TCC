@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const estoqueController = require('../controllers/estoqueController');
+const estoqueController = require('../controllers/estoque.controller');
 
 router.get('/dados', estoqueController.listar);
 router.put('/dados/:codigo', estoqueController.atualizar);

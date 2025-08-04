@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "Minha API para o TCC com Node.js e MySQL",
   "main": "server.js",
- "scripts": {
-  "start": "node server.js",
-  "testdeploy": "ls -R"
-},
-
+  "scripts": {
+    "start": "node server.js",
+    "testdeploy": "ls -R"
+  },
   "dependencies": {
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
@@ -15,6 +14,7 @@
     "dotenv": "^16.5.0",
     "exceljs": "^4.4.0",
     "express": "^4.21.2",
+    "express-rate-limit": "^7.5.1",
     "json2csv": "^6.0.0-alpha.2",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",

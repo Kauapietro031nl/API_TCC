@@ -1,4 +1,4 @@
-const cadastramentoService = require('../services/cadastramentoService');
+const cadastramentoService = require('../services/cadastramento.service');
 
 const cadastrar = async (req, res, next) => {
     try {

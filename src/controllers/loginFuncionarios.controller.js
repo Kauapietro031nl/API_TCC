@@ -1,4 +1,4 @@
-const service = require('../services/loginFuncionariosService');
+const service = require('../services/loginFuncionarios.service');
 
 module.exports = {
   async login(req, res) {

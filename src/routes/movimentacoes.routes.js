@@ -1,5 +1,5 @@
 const express = require('express');
-const movimentacoesController = require('../controllers/movimentacoesController');
+const movimentacoesController = require('../controllers/movimentacoes.controller');
 const router = express.Router();
 
 // Rota para buscar produto

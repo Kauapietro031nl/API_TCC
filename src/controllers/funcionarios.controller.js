@@ -1,4 +1,4 @@
-const service = require('../services/funcionarioService');
+const service = require('../services/funcionario.service');
 
 module.exports = {
   async getAll(req, res, next) {

@@ -1,4 +1,4 @@
-const estoqueService = require('../services/estoqueService');
+const estoqueService = require('../services/estoque.service');
 
 const listar = async (req, res, next) => {
   try {

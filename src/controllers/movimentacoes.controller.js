@@ -1,4 +1,4 @@
-const movimentacoesService = require('../services/movimentacoesService');
+const movimentacoesService = require('../services/movimentacoes.service');
 
 exports.registrarMovimentacao = async (req, res, next) => {
     try {

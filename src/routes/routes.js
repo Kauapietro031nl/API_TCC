@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const authController = require('../controllers/authController');
-const cadastramentoController = require('../controllers/cadastramentoController');
-const estoqueController = require('../controllers/estoqueController');
-const relatorioController = require('../controllers/relatorioController');
-const loginController = require('../controllers/loginController');
-const dashboardRoutes = require('../routes/dashboardRoutes');
-const funcionariosRoutes = require('./funcionariosRoutes');
+const authController = require('../controllers/auth.controller');
+const cadastramentoController = require('../controllers/cadastramento.controller');
+const estoqueController = require('../controllers/estoque.controller');
+const relatorioController = require('../controllers/relatorio.controller');
+const loginController = require('../controllers/login.controller');
+const dashboardRoutes = require('../routes/dashboard.routes');
+const funcionariosRoutes = require('./funcionarios.routes');
 
 //cadastro de usuarios
 router.post('/cadastrar', authController.register);
@@ -27,5 +27,8 @@ router.post('/login', loginController.login);
 router.use(dashboardRoutes);
 //rotas de funcionarios 
 router.use('/api/funcionarios', funcionariosRoutes);
+
+router.post('/api/generate-pdf', relatorioController.downloadMovimentacoesPDF);
+router.post('/api/generate-excel', relatorioController.downloadMovimentacoesXLS);
 
 module.exports = router;
